@@ -1,6 +1,8 @@
 function Forum() {
     var j=0;
     var ticket = core.Access_lib("exportTicket");
+    var user_details=core.Access_lib("user_details");
+
     function createElement(tagName, parentElement, attList, style, events, label) {
         var element = document.createElement(tagName);
         var attrName, styleName, eventName;
@@ -82,9 +84,13 @@ function Forum() {
                };
     };
     function deleteTicket(element) {
-        var p1 = element.parentNode;
-        var p2 = p1.parentNode;
-        p2.removeChild(p1);
+        if(user_details.getRole(document.getElementById('userId').value)=='master') {
+            var p1 = element.parentNode;
+            var p2 = p1.parentNode;
+            p2.removeChild(p1);
+        }
+        else
+            alert('permission denied');
     }
     function showdes(i) {
         if(document.getElementById("divDescription"+i).style.display =="none")
