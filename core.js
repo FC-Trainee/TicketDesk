@@ -1,7 +1,10 @@
-
+//CREATTING THE APPLICATION CORE CLASS 
 function core()
 {
-  var lib={};
+  var lib={};      //THE LIBRARY OBJECT WHICH WILL STORE THE SHARED METHODS AND VARIABLE WHICH WILL BE USED BY OTHE MEMBERS AS PER REQUUIREMENT
+  
+//DEFINING PROPERTIES FOR THE CORE CLASS 
+    //THE GET AUTHETICATION PROPERTY PROVIDES UNIQUE AUTHETICATION ,PRODUCES A RANDOM NUMBER BASED ON THE USERS REGISTRATION KEY
   Object.defineProperty(core,"getAuthentication",{
     value:function(){var a=Math.random()*100000000;var b=Math.random()*100;var c=Math.round(a/b); return c;},
     configurable:false,
@@ -9,7 +12,7 @@ function core()
     enumerable:false,});
 
 
-
+//REGISTER PROPERTY ,A FUNCTION WHICH LETS THE MEMEBERS REGISTER THEIR METHODS AND CLASSES WHICH MIGHT BE USED BY OTHER MEMBERS 
   Object.defineProperty(core,"register",{
     value:function(val,lib_key,pass)
       {
@@ -30,7 +33,7 @@ function core()
     writable:false,
     enumerable:false,});
 
-
+//THE ACCESS_LIB FUNCTION WHICH LETS THE OTHER MEMEBERS ACCESS ALL THE METHODS AL READY STORED IN THE LIBRARY OBJECT.
   Object.defineProperty(core,"Access_lib",{
     value:function(lib_key)
         {
@@ -45,3 +48,4 @@ function core()
 
 }
 core();
+//@AUTHORED BY SAYAN SIKDAR
