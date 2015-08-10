@@ -1,16 +1,14 @@
-var pwd=core.getAuthentication();
-core.register(new User(),"user_details",pwd);
-core.Access_lib("user_details");
+var pwd=core.getAuthentication(); //accepting the password for authentication
+core.register(new User(),"user_details",pwd);   //registering User class with key bvalue "user_details"
 function User(){
-	this.getName=function (id){
-		var name=core.Access_lib("forum_json");
-		return name.getUser(id,"name");
+	var forum=core.Access_lib("forum_json");    //storing the returned object 
+	this.getName=function (id){		
+			return forum.getUser(id,"name");	//returns the name of the matching id
 	};
 	this.getRole=function (id){
-		var role=core.Access_lib("forum_json");
-		return role.getUser(id,"role");
+		return forum.getUser(id,"role");		//returns the role of the matching id
 	};
-	this.isPrivilege=function (id){
+	this.isPrivilege=function (id){				//returns the privilege of the matching id
 		var privilege=[],role;
 		
 		role=this.getRole(id);
@@ -35,9 +33,9 @@ function User(){
         }
 		return privilege;
 	};
-	this.users=function (id){
+	this.users=function (id){				
 		var user={};
 		user[id]=core.Access_lib("forum_json");
-		return user;
+		return user;							//returns an object containing complete details of the matching id
 	};
 }
