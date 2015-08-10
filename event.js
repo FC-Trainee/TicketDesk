@@ -5,7 +5,6 @@ core.register(new event(), "event", pw);
 function event() {
     var user = core.Access_lib("user_details");
     var draw = core.Access_lib("draw");
-    console.log(draw);
     var userjson = core.Access_lib("forum_json");
     var ticket = core.Access_lib("exportTicket");
     var role, div1, div2, div3, div4;
@@ -44,7 +43,7 @@ function event() {
                 alert(sucmsg);
                 document.getElementById(div2.login_id).value = '';
                 document.getElementById(div2.name).value = '';
-                document.getElementById(div2.role).value ='';
+                document.getElementById(div2.role).value = '';
             }
         }
     });
@@ -78,8 +77,8 @@ function event() {
                 }
             }
             if (pri[i] === "view") { //view = Assignee can only view ticket
-                if (document.getElementById("viewDiv") !== null)
-                    document.getElementById("viewDiv").style.display = "block";
+                //if (document.getElementById("viewDiv") !== null)
+                document.getElementById("viewDiv").style.display = "block";
                 if (document.getElementById("insertionDiv") !== null)
                     document.getElementById("insertionDiv").style.display = "none";
 
@@ -91,7 +90,7 @@ function event() {
                 }
 
             } else {
-                document.getElementById(div2.add_user).disabled = true;//disable add user button if not Admin
+                document.getElementById(div2.add_user).disabled = true; //disable add user button if not Admin
 
                 document.getElementById("viewDiv").style.display = "block";
                 if (document.getElementById("insertionDiv") !== null)
@@ -102,6 +101,7 @@ function event() {
             } else {
 
                 document.getElementById('addUserDiv').style.display = "block";
+                document.getElementById(div1.user_type).innerHTML = user.getRole(document.getElementById(div1.login_id).value).toUpperCase();
             }
 
         }
