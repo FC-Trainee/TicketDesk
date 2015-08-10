@@ -42,6 +42,9 @@ function event() {
             } else {
                 var sucmsg = userjson.setUser(document.getElementById(div2.login_id).value, document.getElementById(div2.name).value, document.getElementById(div2.role).value);
                 alert(sucmsg);
+                document.getElementById(div2.login_id).value = '';
+                document.getElementById(div2.name).value = '';
+                document.getElementById(div2.role).value ='';
             }
         }
     });
