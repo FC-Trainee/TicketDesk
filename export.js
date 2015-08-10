@@ -2,65 +2,60 @@ var pw = core.getAuthentication();
 core.register(new ticketExport(), "exportTicket", pw);
 
 function ticketExport() {
-    this.exportTicket = function(element) {
-        var i;
-        var textArray = [];
+    var allTicket = [];
+    this.exportTicket = function(element, flag) {
+        var ticketValue = {};
         var parent = element.parentNode;
         var divchildren = parent.children;
-        var back = divchildren[0].style.background;
         var children = divchildren[0].children;
-        var content;
-
-        if (children.length === 0) {
-            children = divchildren;
-            back = parent.style.background;
-        }
         for (i = 0; i < children.length; i++) {
-
             var childid = children[i].id;
             var childtype = children[i].type;
             if (childid.substr(0, 6) === "ticket" && childtype === "text") {
-                content = "ID: " + children[i].value;
-                textArray.push(content);
+                var content = children[i].value;
+                ticketValue.ID = content;
             } else {
                 if (childid.substr(0, 4) === "user" && childtype === "text") {
-                    content = "Header: " + children[i].value;
-                    textArray.push(content);
+                    var content = children[i].value;
+
+                    ticketValue.header = content;
                 } else if (childid.substr(0, 6) === "header" && childtype === "text") {
-                    content = "Ticket Reporter: " + children[i].value;
-                    textArray.push(content);
+                    var content = children[i].value;
+
+                    ticketValue.reporter = content;
                 }
             }
         }
-        var status = back;
-        if (status === "red") {
-            content = "Staus: confirmed";
-            textArray.push(content);
+        var status = divchildren[0].style.background;
+        if (status.toString() === "rgb(205, 92, 92)") {
+            var content = "confirmed";
+
+            ticketValue.ticketStatus = content;
 
         } else {
-            if (status === "green") {
-                content = "Staus:rejected";
-                textArray.push(content);
+            if (status.toString() === "rgb(143, 188, 143)") {
+                var content = "rejected";
+                ticketValue.ticketStatus = content;
             } else {
-                content = "Staus: none";
-                textArray.push(content);
-
+                var content = "none";
+                ticketValue.ticketStatus = content;
             }
         }
-        children = divchildren[4].children;
-        content = "description: " + children[0].value;
-        textArray.push(content);
-        var myJsonString = JSON.stringify(textArray);
-        console.log(myJsonString);
+        var children = divchildren[3].children;
+        var content = children[0].value;
+        ticketValue.ticketDescription = content;
+        if (flag === false)
+            console.log(JSON.stringify(ticketValue));
+        else
+            allTicket.push(ticketValue);
     }
     this.exportAllTicket = function() {
-        var j;
+        allTicket = [];
         var children = document.getElementsByName("export");
-        for (j = 0; j < children.length; j++)
+        for (j = 0; j < children.length; j++) {
+            this.exportTicket(children[j], true);
+        }
 
-
-            this.exportTicket(children[j]);
-
-
+        console.log(JSON.stringify(allTicket));
     }
 }
