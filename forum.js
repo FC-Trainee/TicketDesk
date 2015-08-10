@@ -69,9 +69,9 @@ function Forum() {
         createElement("input", head, {id:"user"+j, value:name, readOnly:"true"}, {position:"absolute", right:"7%", top:"5%", height:"30%", width:"20%"}, null, "");
         createElement("button", tick, {id:"cancel"+j}, {position:"absolute", right:"2%", top:"10%", height:"10%", width:"3%", cursor: "pointer", backgroundColor:"white"}, {click:function(){deleteTicket(this);}},  "X"); 
         var statusDiv = createElement("div", tick, {id:"statusDiv"+j}, {position:"absolute", right:"2%", bottom:"55%"}, null, "");
-        createElement("a", statusDiv, {id:"confirm"+j}, {position:"relative", cursor:"pointer"}, { click:(function(){var k=j;return function(){colourRed(k);};})()}, "Confirm");
-        createElement("a", statusDiv, {id:"reject"+j}, {position:"relative", cursor:"pointer"}, { click:(function(){var k=j;return function(){colourGreen(k);};})()}, " / Reject");
-        createElement("a", statusDiv, {id:"reset"+j}, {position:"relative", cursor:"pointer"}, { click:(function(){var k=j;return function(){resetColor(k);};})()}, " / Reset");
+        createElement("a", statusDiv, {id:"confirm"+j}, {position:"relative", cursor:"pointer"}, { click:(function(){var k=j;return function(){setAttr(this, "status", "1", k);};})()}, "Confirm");
+        createElement("a", statusDiv, {id:"reject"+j}, {position:"relative", cursor:"pointer"}, { click:(function(){var k=j;return function(){setAttr(this, "status", "2", k);};})()}, " / Reject");
+        createElement("a", statusDiv, {id:"reset"+j}, {position:"relative", cursor:"pointer"}, { click:(function(){var k=j;return function(){setAttr(this, "status", "3", k);};})()}, " / Reset");
         createElement("button", head, {id:"toggle"+j}, {position:"absolute", left:"48%", bottom:"0%", height:"20%",width:"5%", cursor: "pointer"}, { click:(function(){var k=j;return function(){showdes(k);};})()}, "-");
         var desc = createElement("div", tick, {id:"divDescription"+j}, {position:"absolute", bottom:"10%", height:"40%", width:"100%", display:"none"}, null, "");
         createElement("textarea", desc, {id:"textarea"+j, value:description, readOnly:"true"}, {position:"absolute", top:"10%", height:"80%", width:"80%", margin:"2%"}, null, "");
@@ -102,17 +102,24 @@ function Forum() {
         else
             document.getElementById("divDescription" + i).style.display = "none";
     }
-    function colourRed(i) {
-        if(document.getElementById("confirm" + i))
-            document.getElementById("ticketDiv" + i).style.background = "IndianRed";
+    function setAttr(el, name, value, i) {
+        el.setAttribute(name,value);
+        eve(el,i);
     }
-    function colourGreen(i) {
-        if(document.getElementById("reject" + i))
-            document.getElementById("ticketDiv" + i).style.background = "DarkSeaGreen";
-    }
-    function resetColor(i) {
-        if(document.getElementById("reset" + i))
-            document.getElementById("ticketDiv" + i).style.background = "none";
+    function eve(el, i) {
+        if(el.getAttribute("status")==1) {
+            if(document.getElementById("confirm"+i))
+                document.getElementById('ticketDiv'+i).style.background = "IndianRed";
+        }
+        if(el.getAttribute("status")==2) {
+            if(document.getElementById("confirm"+i))
+                document.getElementById("ticketDiv"+i).style.background = "DarkSeaGreen";
+        }
+        if(el.getAttribute("status")==3)
+        {
+            if(document.getElementById("confirm"+i))
+                document.getElementById("ticketDiv"+i).style.background = "AliceBlue";
+        }
     }
     this.createTicket = function() {
         createElement("div", maindiv, {id:"insertionDiv"}, {position:"relative", height:"30%", width:"100%", display:"block", backgroundColor:"AliceBlue" , border:"1px solid #40E0D0"}, null,  "");
