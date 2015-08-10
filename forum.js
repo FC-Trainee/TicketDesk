@@ -27,10 +27,11 @@ function Forum() {
         createElement("h1", insertDiv, {id:"heading"}, {position:"absolute", width:"100%", textAlign:"center"}, null, "Online Forum");
         createElement("input", insertDiv, {id:"userId", placeholder:"Please Enter Your ID"}, {position:"absolute", left:"5%", top:"60%", height:"20%", width:"50%"}, null, "");
         createElement("button", insertDiv, {id:"go1"}, {position:"absolute", right:"30%", top:"60%", height:"20%", width:"10%", cursor: "pointer", backgroundColor:"white"}, null, "GO");
-        createElement("span", insertDiv, {id:"rol"}, {position:"absolute", right:"2%", top:"10%", color: "#008B8B"}, null, "LOGIN");
+        createElement("span", insertDiv, {id:"rol"}, {position:"absolute", right:"2%", top:"10%", color: "#008B8B"}, null, "");
         return {
                 "login_id":"userId",
-                "go1":"go1"
+                "go1":"go1",
+                "user_type":"rol"
                };
     };
     this.addUser = function() {
@@ -75,6 +76,10 @@ function Forum() {
         var desc = createElement("div", tick, {id:"divDescription"+j}, {position:"absolute", bottom:"10%", height:"40%", width:"100%", display:"none"}, null, "");
         createElement("textarea", desc, {id:"textarea"+j, value:description}, {position:"absolute", top:"10%", height:"80%", width:"80%", margin:"2%"}, null, "");
         createElement("button", tick, {id:"export1" + j, name:"export"}, {position:"absolute", right:"2%", top:"42%", height:"12%", width:"10%", cursor: "pointer", backgroundColor:"white"},{click:function(){ticket.exportTicket(this);}}, "Export");
+        document.getElementById("ticket"+j).readOnly = true; 
+        document.getElementById("header"+j).readOnly = true;
+        document.getElementById("user"+j).readOnly = true;
+        document.getElementById("textarea"+j).readOnly = true;
         j++;
         return {
                 "ticket_id" : "ticket" + j,
