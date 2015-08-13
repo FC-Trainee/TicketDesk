@@ -3,29 +3,29 @@ function forum_json() {
 
 	var forum = {
 
-		users : [ {"id":"chinmoy1","name":"chinmoy","role":"master"} ,
+		users : [ {"id":"chinmoy","name":"chinmoy","role":"master"} ,
 				{ "id":"kishan1","name":"kisan","role":"admin"}
 				] ,
 		tickets : []
 	} ;
 
-	this.forum=function() {
-
-	return forum;
+	this.forum=function()
+	{
+		return forum;
 	}
 
 	this.setUser = function ( id, name, role ) {
 	   
-	   var user = { "id" : id , "name" : name, "role" : role } ;
+	   var user = { "id" : id , "name" : name, "role" : role };
 	   forum.users.push( user ) ;
 	   
-	   return "New user added successfully..." ;
+	   return "New user successfully added...";
 	 }
 
 	this.setTicket = function( id, header, desc, status, name ) {
 
-	 	var ticket = { "id" : id, "header" : header, "desc" : desc, "status" : status, "name" : name } ;
-	 	forum.tickets.push( ticket ) ;
+	 	var ticket = { "id" : id, "header" : header, "desc" : desc, "status" : status, "name" : name };
+	 	forum.tickets.push( ticket );
 	 }
 
 
@@ -35,20 +35,18 @@ function forum_json() {
 			
 	        if( forum.users[i].id == id ) {
 	          	if( requirement === "name" ) {
-	          		return forum.users[i].name ;
+	          		return forum.users[i].name;
 	          	}
 	          	else if( requirement === "role" ) {
-	          		return forum.users[i].role ;
+	          		return forum.users[i].role;
 	          	}
 	          	else if( requirement === "details" ) {
-	          		return forum.users[i] ;
+	          		return forum.users[i];
 	          	}
 	        }
-	        else {
-	    		return "Id not Matching!!!" ;
-			}	
-		}
-	}
+	    }
+	    return "Id not matching!!!";
+	}	
 
 	this.getTicket = function( id, requirement ) {
 
@@ -56,27 +54,29 @@ function forum_json() {
 
 	        if( forum.tickets[i].id == id ) {
 	          	if( requirement === "header" ) {
-	          		return forum.tickets[i].header ;
+	          		return forum.tickets[i].header;
 	          	}
 	          	else if( requirement === "desc" ) {
-	          		return forum.tickets[i].desc ;
+	          		return forum.tickets[i].desc;
 	          	}
 	          	else if( requirement === "status" ) {
-	          		return forum.tickets[i].status ;
+	          		return forum.tickets[i].status;
 	          	}
 	          	else if( requirement === "name" ) {
-	          		return forum.tickets[i].name ;
+	          		return forum.tickets[i].name;
 	          	}
 	          	else if( requirement === "details" ) {
-	          		return forum.tickets[i] ;
+	          		return forum.tickets[i];
 	          	}
 	        }
-	        else {
-	        	return "Id not matching!!" ;
+	        else
+	        {
+	        	return "Id not matching!!";
 	        }
 		}
+		
 	}
 }
 
-var pw = core.getAuthentication() ;
-core.register( new forum_json(), "forum_json", pw ) ;
+var pw=core.getAuthentication();
+core.register(new forum_json(),"forum_json",pw);
